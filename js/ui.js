@@ -1,8 +1,9 @@
-/** Today / Itinerary / Discover / Overview — Place vs Visit separated. */
+/** Today / Itinerary / Discover / Overview — Place vs Visit; V3.1 one-day. */
 const TripUI = (() => {
   let data = null;
   let placeById = {};
   let activeKey = null;
+  let currentTab = 'today';
 
   function esc(s) {
     return String(s || '')
@@ -26,8 +27,56 @@ const TripUI = (() => {
     return `visit-${v.visit_id || idx}`;
   }
 
+  function placeMarkerKey(placeId) {
+    return `place-${placeId}`;
+  }
+
   function plannedVisits() {
     return (data.visits || []).filter((v) => !v.optional).sort((a, b) => (a.sequence || 0) - (b.sequence || 0));
+  }
+
+  function parseHm(hm) {
+    if (!hm || typeof hm !== 'string') return null;
+    const m = hm.match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) return null;
+    return Number(m[1]) * 60 + Number(m[2]);
+  }
+
+  /** Split planned visits into NOW / NEXT / LATER by clock (Asia/Shanghai assumed by page). */
+  function phaseBuckets(visits) {
+    const now = new Date();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    let nowIdx = -1;
+    let nextIdx = -1;
+    for (let i = 0; i < visits.length; i++) {
+      const a = parseHm(visits[i].planned_start);
+      const b = parseHm(visits[i].planned_end) ?? a;
+      if (a == null) continue;
+      if (mins >= a && mins <= (b ?? a)) {
+        nowIdx = i;
+        break;
+      }
+      if (mins < a) {
+        nextIdx = i;
+        break;
+      }
+    }
+    if (nowIdx < 0 && nextIdx < 0) {
+      // before first → NEXT = first; after last → NOW = last phase done
+      if (visits.length) {
+        const first = parseHm(visits[0].planned_start);
+        if (first != null && mins < first) nextIdx = 0;
+        else nowIdx = visits.length - 1; // day winding down: show last as "当前阶段"
+      }
+    }
+    const laterStart = Math.max(nowIdx, nextIdx) + 1;
+    return {
+      nowVisit: nowIdx >= 0 ? visits[nowIdx] : null,
+      nowIdx,
+      nextVisit: nextIdx >= 0 ? visits[nextIdx] : (nowIdx >= 0 && nowIdx + 1 < visits.length ? visits[nowIdx + 1] : null),
+      nextIdx: nextIdx >= 0 ? nextIdx : (nowIdx >= 0 && nowIdx + 1 < visits.length ? nowIdx + 1 : -1),
+      later: visits.slice(Math.max(laterStart, nextIdx >= 0 ? nextIdx + 1 : (nowIdx >= 0 ? nowIdx + 2 : 0))),
+    };
   }
 
   function openLightbox(full) {
@@ -60,7 +109,14 @@ const TripUI = (() => {
       ? `${visit.planned_start || ''}${visit.planned_end ? ' – ' + visit.planned_end : ''}`
       : '';
     const title = place.short_name || place.name;
-    const desc = visit?.activity || place.description || place.address || '';
+    let desc = visit?.activity || place.description || place.address || '';
+    let badges = '';
+    if (place.hours_status === 'CLOSED_MONDAY' || place.rain_plan_b === false) {
+      if (opts.discover) {
+        badges = '<span class="chip chip-warn">周一闭馆</span><span class="chip">非雨天Plan B</span>';
+        desc = place.opening_hours?.summary || desc;
+      }
+    }
     return `
       <article class="card" data-key="${esc(key)}" data-place="${esc(place.place_id)}">
         <div class="card-row">
@@ -68,6 +124,7 @@ const TripUI = (() => {
           <div class="meta">
             <div class="time">${esc(time)}</div>
             <h3>${esc(title)}</h3>
+            ${badges ? `<div class="chip-row">${badges}</div>` : ''}
             <div class="desc">${esc(desc)}</div>
           </div>
         </div>
@@ -75,29 +132,95 @@ const TripUI = (() => {
       </article>`;
   }
 
+  function rainCopySafe(w) {
+    // Never recommend museum as rain Plan B
+    const impact = w?.impact?.outdoor || '';
+    const gear = w?.gear || '';
+    let note = [gear, impact].filter(Boolean).join(' · ');
+    // strip any museum suggestion if present
+    note = note.replace(/博物馆[^·；;]*/g, '').replace(/\s{2,}/g, ' ').trim();
+    if (!note) note = '雨具随身；午后对流时优先已确认开放的室内点';
+    return note + '（峰峰博物馆周一闭馆，不作今日雨备）';
+  }
+
   function renderToday() {
     const el = document.getElementById('view-today');
     const w = data.weather || {};
     const visits = plannedVisits();
-    const nowLabel = visits[0] ? (placeById[visits[0].place_id]?.short_name || '') : '';
-    const next = visits[1];
-    const nextLabel = next ? (placeById[next.place_id]?.short_name || '') : '—';
+    const { nowVisit, nextVisit, later, nextIdx } = phaseBuckets(visits);
+    const nowPlace = nowVisit ? placeById[nowVisit.place_id] : null;
+    const nextPlace = nextVisit ? placeById[nextVisit.place_id] : null;
+
+    // transit to next
+    let transit = '';
+    if (nextVisit && nextIdx > 0) {
+      const prev = visits[nextIdx - 1];
+      const seg = (data.routes || []).find((s) => s.from === prev.place_id && s.to === nextVisit.place_id);
+      const r = prev?.route_to_next;
+      if (seg || r) {
+        const mode = seg?.mode || r?.mode || '前往';
+        const dur = seg?.duration ?? r?.duration_min;
+        const dist = seg?.distance ?? r?.distance_km;
+        transit = `${mode}${dur != null ? ' · ' + dur + ' 分钟' : ''}${dist != null ? ' · ' + dist + ' km' : ''}`;
+      }
+    } else if (nextVisit && nextIdx === 0) {
+      transit = '今日首站';
+    }
+
+    const nextThumb = nextPlace ? thumbOf(nextPlace) : null;
+    const laterHtml = later.length
+      ? `<details class="later-fold">
+          <summary>稍后 · ${later.length} 站</summary>
+          <div class="later-list">
+            ${later.map((v, i) => {
+              const p = placeById[v.place_id];
+              if (!p) return '';
+              // key resolves to place marker (deduped)
+              return cardHtml(p, v, { key: placeMarkerKey(p.place_id) });
+            }).join('')}
+          </div>
+        </details>`
+      : '<p class="muted" style="font-size:12px">本日无更多计划停靠</p>';
+
     el.innerHTML = `
-      <div class="hero">
-        <h2>${esc(data.label || data.day)}</h2>
-        <div class="muted">${esc(data.city || '')} · ${esc(data.day)}</div>
-        <div class="chip-row">
-          <span class="chip">${esc(w.condition || '天气待定')}</span>
-          ${(w.tags || []).slice(0, 3).map((t) => `<span class="chip">${esc(t)}</span>`).join('')}
+      <section class="phase phase-now" aria-label="当前">
+        <div class="phase-label">NOW</div>
+        <div class="hero">
+          <h2>${esc(data.label || data.day)}</h2>
+          <div class="muted">${esc(data.city || '')} · ${esc(data.day)} · ${esc(w.weekday || '')}</div>
+          <div class="chip-row">
+            <span class="chip">${esc(w.condition || '天气待定')}</span>
+            ${(w.tags || []).filter((t) => t !== 'INDOOR_FALLBACK' || true).slice(0, 3).map((t) => `<span class="chip">${esc(t)}</span>`).join('')}
+          </div>
+          <p class="desc" style="margin:10px 0 0;font-size:13px;color:var(--muted)">${esc(rainCopySafe(w))}</p>
+          <p style="margin:10px 0 0;font-size:13px">
+            <strong>当前阶段</strong>
+            ${nowPlace ? esc(nowPlace.short_name || nowPlace.name) + (nowVisit ? ` · ${esc(nowVisit.planned_start || '')}–${esc(nowVisit.planned_end || '')}` : '') : '行程间隙 / 日终'}
+            ${nowVisit?.activity ? ` · ${esc(nowVisit.activity)}` : ''}
+          </p>
         </div>
-        <p class="desc" style="margin:10px 0 0;font-size:13px;color:var(--muted)">${esc(w.gear || '')}${w.impact?.outdoor ? ' · ' + esc(w.impact.outdoor) : ''}</p>
-        <p style="margin:10px 0 0;font-size:13px"><strong>当前/首站</strong> ${esc(nowLabel)} → <strong>下一站</strong> ${esc(nextLabel)}</p>
-      </div>
-      ${visits.map((v, i) => {
-        const p = placeById[v.place_id];
-        if (!p) return '';
-        return cardHtml(p, v, { key: visitKey(v, i) });
-      }).join('')}`;
+      </section>
+
+      <section class="phase phase-next" aria-label="下一站">
+        <div class="phase-label">NEXT</div>
+        ${nextPlace ? `
+          <article class="card card-next" data-key="${esc(placeMarkerKey(nextPlace.place_id))}" data-place="${esc(nextPlace.place_id)}">
+            <div class="card-row">
+              ${nextThumb ? `<img class="thumb thumb-hero" src="${esc(nextThumb)}" alt="" loading="lazy" data-enlarge="${esc(nextPlace.place_id)}" />` : '<div class="thumb thumb-hero"></div>'}
+              <div class="meta">
+                <div class="time">出发 ${esc(nextVisit.planned_start || '')}${nextVisit.planned_end ? ' · 停留至 ' + esc(nextVisit.planned_end) : ''}</div>
+                <h3>${esc(nextPlace.short_name || nextPlace.name)}</h3>
+                <div class="desc">${esc(nextVisit.activity || '')}${transit ? ' · ' + esc(transit) : ''}</div>
+              </div>
+            </div>
+            ${NavLinks.buttonsHtml(nextPlace)}
+          </article>` : '<p class="muted">本日计划已结束</p>'}
+      </section>
+
+      <section class="phase phase-later" aria-label="稍后">
+        <div class="phase-label">LATER</div>
+        ${laterHtml}
+      </section>`;
   }
 
   function renderItinerary() {
@@ -111,7 +234,7 @@ const TripUI = (() => {
       const key = visitKey(v, i);
       const thumb = thumbOf(p);
       html += `
-        <div class="timeline-item" data-key="${esc(key)}" data-num="${i + 1}">
+        <div class="timeline-item" data-key="${esc(key)}" data-place="${esc(p.place_id)}" data-num="${i + 1}">
           <div class="card-row">
             ${thumb ? `<img class="thumb" src="${esc(thumb)}" alt="" loading="lazy" data-enlarge="${esc(p.place_id)}" />` : ''}
             <div class="meta">
@@ -126,8 +249,10 @@ const TripUI = (() => {
         const from = v.place_id;
         const to = visits[i + 1].place_id;
         const seg = segs.find((s) => s.from === from && s.to === to);
+        const kind = (seg?.geometry_kind || 'SCHEMATIC').toUpperCase();
+        const badge = kind === 'SCHEMATIC' ? ' <span class="inline-badge">示意</span>' : '';
         if (seg) {
-          html += `<div class="route-gap">${esc(seg.mode || '前往')} · ${seg.duration != null ? seg.duration + ' 分钟' : ''}${seg.distance != null ? ' · ' + seg.distance + ' km' : ''}</div>`;
+          html += `<div class="route-gap">${esc(seg.mode || '前往')} · ${seg.duration != null ? seg.duration + ' 分钟' : ''}${seg.distance != null ? ' · ' + seg.distance + ' km' : ''}${badge}</div>`;
         } else {
           html += `<div class="route-gap">前往下一站</div>`;
         }
@@ -145,11 +270,11 @@ const TripUI = (() => {
       return;
     }
     el.innerHTML = `
-      <p class="muted" style="margin-top:0">候选（未排进今天行程）· 雨天室内备选</p>
+      <p class="muted" style="margin-top:0">候选（未排进今天行程）。峰峰博物馆周一闭馆，不作雨天 Plan B。</p>
       ${ids.map((id) => {
         const p = placeById[id];
         if (!p) return '';
-        return cardHtml(p, null, { key: `discover-${id}` });
+        return cardHtml(p, null, { key: `discover-${id}`, discover: true });
       }).join('')}`;
   }
 
@@ -162,26 +287,55 @@ const TripUI = (() => {
         <p>${esc(data.label)}</p>
         <p class="muted">计划停靠 ${plannedVisits().length} · 发现候选 ${(data.discover_place_ids || []).length}</p>
         <p class="muted">天气：${esc(w.condition || '')}</p>
-        <p class="muted" style="font-size:12px">Place / Visit 分离；首屏仅当日数据。地图异步，失败不阻塞行程。</p>
+        <p class="muted" style="font-size:12px">Place / Visit 分离；同 POI 一日一标；示意路线已标注。地图异步，失败进安全模式。</p>
+        <p class="muted" style="font-size:12px">峰峰博物馆：CLOSED_MONDAY（2026-09-28），rain_plan_b=false。</p>
       </div>`;
   }
 
-  function setActiveKey(key, { fromMap = false } = {}) {
+  function activeViewSelector() {
+    return `#view-${currentTab}`;
+  }
+
+  /** Highlight timeline/card in current tab only — never steal tab. */
+  function setActiveKey(key, { fromMap = false, placeId = null } = {}) {
     activeKey = key;
-    document.querySelectorAll('[data-key]').forEach((n) => {
-      n.classList.toggle('active', n.getAttribute('data-key') === key);
-    });
-    if (!fromMap && key) {
-      TripMap.focus(key);
-    } else if (fromMap && key) {
-      TripMap.highlight(key, { openPopup: true });
-      const node = document.querySelector(`[data-key="${CSS.escape(key)}"]`);
-      if (node) {
-        node.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        // ensure parent tab shows timeline/today
-        const tab = node.closest('.view')?.id?.replace('view-', '');
-        if (tab) switchTab(tab);
+    const root = document.querySelector(activeViewSelector()) || document;
+    // clear globally then set in current view (and matching place nodes)
+    document.querySelectorAll('[data-key].active, [data-place].active').forEach((n) => n.classList.remove('active'));
+
+    let node = root.querySelector(`[data-key="${CSS.escape(key)}"]`);
+    if (!node && placeId) {
+      node = root.querySelector(`[data-place="${CSS.escape(placeId)}"]`);
+    }
+    // If map sent place-* key while on itinerary (visit-* rows), resolve by place
+    if (!node && key.startsWith('place-')) {
+      const pid = key.slice('place-'.length);
+      const nodes = [...root.querySelectorAll(`[data-place="${CSS.escape(pid)}"]`)];
+      node = nodes[0] || null;
+    }
+    if (!node && key.startsWith('discover-')) {
+      node = root.querySelector(`[data-key="${CSS.escape(key)}"]`);
+    }
+    if (node) {
+      node.classList.add('active');
+      // if multiple visit rows same place on itinerary, highlight all for that place
+      const pid = node.getAttribute('data-place');
+      if (pid && currentTab === 'itinerary') {
+        root.querySelectorAll(`[data-place="${CSS.escape(pid)}"]`).forEach((n) => n.classList.add('active'));
       }
+      node.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    const mapKey = key.startsWith('visit-')
+      ? placeMarkerKey(document.querySelector(`[data-key="${CSS.escape(key)}"]`)?.getAttribute('data-place') || placeId || '')
+      : key;
+    const focusKey = TripMap.hasMarker?.(mapKey) ? mapKey : (TripMap.hasMarker?.(key) ? key : mapKey);
+
+    if (!fromMap && focusKey) {
+      TripMap.focus(focusKey);
+    } else if (fromMap && focusKey) {
+      TripMap.highlight(focusKey, { openPopup: true });
+      // DO NOT switchTab — stay on current tab
     }
   }
 
@@ -197,11 +351,20 @@ const TripUI = (() => {
       if (e.target.closest('a.btn')) return;
       const item = e.target.closest('[data-key]');
       if (!item) return;
-      setActiveKey(item.getAttribute('data-key'));
+      const key = item.getAttribute('data-key');
+      const placeId = item.getAttribute('data-place');
+      // map focus uses place marker key when on today/discover
+      if (currentTab === 'itinerary') {
+        setActiveKey(key, { placeId });
+        if (placeId) TripMap.focus(placeMarkerKey(placeId));
+      } else {
+        setActiveKey(key, { placeId });
+      }
     });
   }
 
   function switchTab(name) {
+    currentTab = name;
     document.querySelectorAll('.tab').forEach((t) => {
       const on = t.dataset.tab === name;
       t.classList.toggle('active', on);
@@ -213,6 +376,14 @@ const TripUI = (() => {
       v.hidden = !on;
     });
     TripMap.invalidateSize();
+    if (name === 'discover') {
+      addDiscoverMarkers();
+      TripMap.setPlannedEmphasis?.(false);
+    } else {
+      TripMap.clearDiscoverMarkers?.();
+      TripMap.setPlannedEmphasis?.(true);
+      pushPlannedStopsOnly();
+    }
   }
 
   function bindTabs() {
@@ -221,44 +392,108 @@ const TripUI = (() => {
     });
   }
 
-  function pushMapLayers() {
+  /** One marker per place_id; popup lists all visit windows that day. */
+  function buildPlannedStops() {
     const visits = plannedVisits();
-    const stops = [];
+    const byPlace = new Map();
     visits.forEach((v, i) => {
       const p = placeById[v.place_id];
       if (!p || !p.coordinates) return;
+      if (!byPlace.has(v.place_id)) {
+        byPlace.set(v.place_id, { place: p, visits: [], firstNum: i + 1 });
+      }
+      byPlace.get(v.place_id).visits.push(v);
+    });
+    const stops = [];
+    byPlace.forEach((entry, placeId) => {
+      const p = entry.place;
+      const windows = entry.visits
+        .map((v) => `${v.planned_start || '?'}-${v.planned_end || '?'} ${v.activity || ''}`.trim())
+        .join('<br/>');
       stops.push({
-        key: visitKey(v, i),
+        key: placeMarkerKey(placeId),
+        placeId,
         lat: p.coordinates.lat,
         lng: p.coordinates.lng,
         title: p.short_name || p.name,
-        subtitle: `${v.planned_start || ''} ${v.activity || ''}`.trim(),
+        subtitle: entry.visits.length > 1 ? `${entry.visits.length} 次停留` : (entry.visits[0].activity || ''),
+        popupHtml: `<strong>${esc(p.short_name || p.name)}</strong><br/><span style="color:#64748b;font-size:12px">${windows}</span>`,
         thumb: thumbOf(p),
-        num: i + 1,
+        num: entry.firstNum,
+        kind: 'planned',
       });
     });
-    // Discover markers deferred — only show when Discover tab? Spec: defer candidates.
-    // Still allow discover focus when user opens card; add lightly with lower emphasis when on discover tab only.
-    TripMap.setStops(stops);
+    return stops;
+  }
 
-    // Route: use segment geometries (GCJ-02 [lng,lat] → Leaflet [lat,lng])
-    const latlngs = [];
+  function pushPlannedStopsOnly() {
+    TripMap.setStops(buildPlannedStops());
+    pushRoutes();
+  }
+
+  function pushRoutes() {
+    const visits = plannedVisits();
     const segs = data.routes || [];
+    const segments = [];
     visits.forEach((v, i) => {
       if (i >= visits.length - 1) return;
       const seg = segs.find((s) => s.from === v.place_id && s.to === visits[i + 1].place_id);
+      let latlngs = [];
       if (seg?.geometry?.coordinates?.length) {
-        seg.geometry.coordinates.forEach((c) => latlngs.push([c[1], c[0]]));
+        latlngs = seg.geometry.coordinates.map((c) => [c[1], c[0]]);
       } else {
         const a = placeById[v.place_id]?.coordinates;
         const b = placeById[visits[i + 1].place_id]?.coordinates;
-        if (a && b) {
-          if (!latlngs.length) latlngs.push([a.lat, a.lng]);
-          latlngs.push([b.lat, b.lng]);
-        }
+        if (a && b) latlngs = [[a.lat, a.lng], [b.lat, b.lng]];
+      }
+      if (latlngs.length >= 2) {
+        segments.push({
+          latlngs,
+          geometry_kind: seg?.geometry_kind || 'SCHEMATIC',
+          color: seg?.style?.color || '#fbbf24',
+        });
       }
     });
-    TripMap.setRoute(latlngs);
+    TripMap.setRoutes(segments);
+  }
+
+  function pushMapLayers() {
+    pushPlannedStopsOnly();
+  }
+
+  function addDiscoverMarkers() {
+    const ids = data.discover_place_ids || [];
+    const stops = ids.map((id) => {
+      const p = placeById[id];
+      if (!p || !p.coordinates) return null;
+      const closed = p.hours_status === 'CLOSED_MONDAY' || p.rain_plan_b === false;
+      const note = closed
+        ? '周一闭馆 · 非雨天 Plan B'
+        : (p.description || '');
+      return {
+        key: `discover-${id}`,
+        placeId: id,
+        lat: p.coordinates.lat,
+        lng: p.coordinates.lng,
+        title: p.short_name || p.name,
+        subtitle: note,
+        popupHtml: `<strong>${esc(p.short_name || p.name)}</strong><br/><span style="color:#f87171;font-size:12px">${esc(note)}</span>`,
+        thumb: thumbOf(p),
+        num: '?',
+        kind: 'discover',
+      };
+    }).filter(Boolean);
+    // keep planned subtle + add discover
+    TripMap.setStops(buildPlannedStops());
+    TripMap.setPlannedEmphasis?.(false);
+    TripMap.addDiscoverMarkers(stops);
+    pushRoutes();
+    return ids;
+  }
+
+  function onMapSelect(key, stop) {
+    const placeId = stop?.placeId || (key.startsWith('place-') ? key.slice(6) : key.startsWith('discover-') ? key.slice(9) : null);
+    setActiveKey(key, { fromMap: true, placeId });
   }
 
   function mount(bundle) {
@@ -278,24 +513,16 @@ const TripUI = (() => {
     bindPanelClicks();
     bindLightbox();
 
-    // Map async — does not block UI
     requestAnimationFrame(() => {
       const first = plannedVisits()[0];
       const c = first && placeById[first.place_id]?.coordinates;
       TripMap.init({
         center: c ? [c.lat, c.lng] : [36.422, 114.20],
         zoom: 13,
-        onSelect: (key) => setActiveKey(key, { fromMap: true }),
+        onSelect: onMapSelect,
       });
       pushMapLayers();
     });
-  }
-
-  function addDiscoverMarkers() {
-    // optional: call when switching to discover
-    const ids = data.discover_place_ids || [];
-    // For v1 day slice we keep map focused on planned stops only (perf).
-    return ids;
   }
 
   return { mount, switchTab, setActiveKey, addDiscoverMarkers };

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0f172a" />
   <title>TRIP2609 · 09-28 峰峰</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" />
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css" />
   <link rel="stylesheet" href="css/trip.css" />
 </head>
 <body>
@@ -36,6 +36,7 @@
       <section class="map-wrap" aria-label="地图">
         <div id="map" role="application"></div>
         <div id="mapStatus" class="map-status">地图加载中…</div>
+        <div id="mapLegend" class="map-legend" hidden></div>
         <button type="button" id="mapRetry" class="map-retry" hidden>重试地图</button>
       </section>
     </main>
@@ -51,7 +52,7 @@
     <p id="lightboxCap" class="muted"></p>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous"></script>
+  <script src="assets/vendor/leaflet/leaflet.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/map.js"></script>
   <script src="js/ui.js"></script>

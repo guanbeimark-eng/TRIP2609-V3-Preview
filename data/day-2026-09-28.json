@@ -194,7 +194,7 @@
       "short_name": "峰峰博物馆",
       "category": "ATTRACTION",
       "city": "峰峰",
-      "address": "轻松日上午；周一常规可能闭",
+      "address": "邯郸市玉皇阁路峰峰矿区市民中心；周一常规可能闭（已标 CLOSED_MONDAY）",
       "coordinates": {
         "lat": 36.43956,
         "lng": 114.226766,
@@ -221,13 +221,19 @@
           "url": "https://uri.amap.com/marker?position=114.226766,36.43956"
         }
       ],
-      "opening_hours": null,
-      "description": "轻松日上午；周一常规可能闭",
+      "opening_hours": {
+        "summary": "周二至周日 09:00-11:30,14:30-17:30（高德POI）；周一常规不开放",
+        "source": "amap POI B0H1ZM5QLT / PRESEED-FENGFENG-SLIM 2026-09-23",
+        "monday_2026_09_28": "CLOSED_MONDAY"
+      },
+      "description": "室内展馆候选；2026-09-28（周一）按高德时段常规闭馆，不作雨天 Plan B",
       "price": null,
       "rating_summary": null,
       "locked": false,
       "role": null,
-      "duration_min": null
+      "duration_min": null,
+      "rain_plan_b": false,
+      "hours_status": "CLOSED_MONDAY"
     }
   ],
   "visits": [
@@ -494,5 +500,8 @@
   "attribution": {
     "ui_base": "EasyItinerary (Dobidop) MIT — map/marker sync patterns",
     "data": "TRIP2609 audited assets"
+  },
+  "discover_notes": {
+    "scenic-museum": "CLOSED_MONDAY — not rain Plan B for 2026-09-28; Amap hours Tue–Sun only; no guide OPEN confirmation"
   }
 }

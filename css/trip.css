@@ -134,3 +134,49 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
   .panel { border-right: 0; border-top: 1px solid #1e293b; order: 2; }
   .map-wrap { order: 1; min-height: 48vh; }
 }
+
+/* V3.1 Today phases */
+.phase { margin-bottom: 14px; }
+.phase-label {
+  font-size: 11px; font-weight: 800; letter-spacing: .08em;
+  color: var(--accent-2); margin: 0 0 6px 2px;
+}
+.card-next { border-color: #0ea5e988; }
+.thumb-hero { width: 88px; height: 88px; border-radius: 12px; }
+.later-fold {
+  background: var(--card); border: 1px solid #334155; border-radius: var(--radius);
+  padding: 10px 12px;
+}
+.later-fold summary {
+  cursor: pointer; font-weight: 700; color: var(--muted); list-style: none;
+}
+.later-fold summary::-webkit-details-marker { display: none; }
+.later-fold[open] summary { margin-bottom: 10px; color: var(--text); }
+.later-list .card { box-shadow: none; }
+
+.chip-warn {
+  background: #7f1d1d55; border-color: #f8717188; color: #fecaca;
+}
+.inline-badge {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  background: #fbbf2433; color: #fbbf24; border: 1px solid #fbbf2488;
+  border-radius: 6px; padding: 1px 6px; margin-left: 4px; vertical-align: middle;
+}
+
+.map-legend {
+  position: absolute; z-index: 500; left: 12px; top: 12px;
+  background: rgba(15,23,42,.9); border: 1px solid #475569; border-radius: 10px;
+  padding: 6px 10px; font-size: 12px; color: #e2e8f0; max-width: 70%;
+}
+.legend-badge, .route-schematic-badge {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  background: #fbbf24; color: #111; border-radius: 6px; padding: 2px 6px;
+  margin-right: 4px;
+}
+.route-schematic-badge {
+  box-shadow: 0 2px 6px rgba(0,0,0,.4); letter-spacing: .04em;
+}
+
+.photo-marker--discover {
+  border-color: #a78bfa; border-style: dashed;
+}
