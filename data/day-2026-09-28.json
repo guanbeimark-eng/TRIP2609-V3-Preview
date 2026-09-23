@@ -1,0 +1,498 @@
+{
+  "trip_id": "TRIP2609",
+  "day": "2026-09-28",
+  "label": "峰峰 · 磁州窑文创日",
+  "city": "邯郸·峰峰",
+  "places": [
+    {
+      "place_id": "hotel-ff-quanyi",
+      "name": "全季酒店(邯郸峰峰矿区店)",
+      "short_name": "峰峰全季",
+      "category": "HOTEL",
+      "city": "峰峰",
+      "address": "峰峰主锚酒店；LOCKED；导航只用高德 POI B0KRHARPZF，勿写死门牌",
+      "coordinates": {
+        "lat": 36.426505,
+        "lng": 114.206935,
+        "coordinate_system": "GCJ-02",
+        "provider": "amap",
+        "status": "VERIFIED"
+      },
+      "images": [
+        {
+          "thumb": "assets/thumb/hotel_ff_quanyi_001_facade.webp",
+          "full": "assets/full/hotel_ff_quanyi_001_facade.jpg",
+          "caption": "门头/外观素材"
+        },
+        {
+          "thumb": "assets/thumb/hotel_ff_quanyi_002_interior.webp",
+          "full": "assets/full/hotel_ff_quanyi_002_interior.jpg",
+          "caption": "大堂"
+        },
+        {
+          "thumb": "assets/thumb/hotel_ff_quanyi_003_interior.webp",
+          "full": "assets/full/hotel_ff_quanyi_003_interior.jpg",
+          "caption": "客房"
+        }
+      ],
+      "poi_id": "B0KRHARPZF",
+      "source_links": [
+        {
+          "label": "AMap",
+          "url": "https://uri.amap.com/marker?position=114.206935,36.426505"
+        }
+      ],
+      "opening_hours": null,
+      "description": "峰峰主锚酒店；LOCKED；导航只用高德 POI B0KRHARPZF，勿写死门牌",
+      "price": null,
+      "rating_summary": null,
+      "locked": true,
+      "role": "HOTEL_FF",
+      "duration_min": null
+    },
+    {
+      "place_id": "scenic-cizhouyao",
+      "name": "滏源里磁州窑文化创意街区",
+      "short_name": "磁州窑街区",
+      "category": "ATTRACTION",
+      "city": "峰峰",
+      "address": "文创日主景点",
+      "coordinates": {
+        "lat": 36.422419,
+        "lng": 114.187695,
+        "coordinate_system": "GCJ-02",
+        "provider": "amap",
+        "status": "VERIFIED"
+      },
+      "images": [
+        {
+          "thumb": "assets/thumb/attraction_cizhouyao_001_img.webp",
+          "full": "assets/full/attraction_cizhouyao_001_img.jpg",
+          "caption": "艺术坊入口"
+        },
+        {
+          "thumb": "assets/thumb/attraction_cizhouyao_002_img.webp",
+          "full": "assets/full/attraction_cizhouyao_002_img.jpg",
+          "caption": "笼盔墙巷道"
+        },
+        {
+          "thumb": "assets/thumb/attraction_cizhouyao_003_night.webp",
+          "full": "assets/full/attraction_cizhouyao_003_night.jpg",
+          "caption": "东阁夜景"
+        }
+      ],
+      "poi_id": "B0FFJHT9HI",
+      "source_links": [
+        {
+          "label": "AMap",
+          "url": "https://uri.amap.com/marker?position=114.187695,36.422419"
+        }
+      ],
+      "opening_hours": null,
+      "description": "文创日主景点",
+      "price": null,
+      "rating_summary": null,
+      "locked": false,
+      "role": null,
+      "duration_min": null
+    },
+    {
+      "place_id": "food-laoma",
+      "name": "临漳老马羊汤馆(峰峰分店)",
+      "short_name": "老马羊汤",
+      "category": "FOOD",
+      "city": "峰峰",
+      "address": "PRIMARY_LUNCH LOCKED",
+      "coordinates": {
+        "lat": 36.421008,
+        "lng": 114.223849,
+        "coordinate_system": "GCJ-02",
+        "provider": "amap",
+        "status": "VERIFIED"
+      },
+      "images": [
+        {
+          "thumb": "assets/thumb/food_laoma_001_facade.webp",
+          "full": "assets/full/food_laoma_001_facade.jpg",
+          "caption": "老马羊汤 · 门头"
+        },
+        {
+          "thumb": "assets/thumb/food_laoma_002_dish.webp",
+          "full": "assets/full/food_laoma_002_dish.jpg",
+          "caption": "老马羊汤 · 菜品"
+        },
+        {
+          "thumb": "assets/thumb/food_laoma_003_dish.webp",
+          "full": "assets/full/food_laoma_003_dish.jpg",
+          "caption": "老马羊汤 · 菜品"
+        }
+      ],
+      "poi_id": "B0FFGX5DJC",
+      "source_links": [
+        {
+          "label": "AMap",
+          "url": "https://uri.amap.com/marker?position=114.223849,36.421008"
+        }
+      ],
+      "opening_hours": null,
+      "description": "PRIMARY_LUNCH LOCKED",
+      "price": null,
+      "rating_summary": null,
+      "locked": true,
+      "role": null,
+      "duration_min": null
+    },
+    {
+      "place_id": "food-qianxi",
+      "name": "千禧三下锅(磁州窑艺术街区店)",
+      "short_name": "千禧三下锅",
+      "category": "FOOD",
+      "city": "峰峰",
+      "address": "PRIMARY_DINNER LOCKED",
+      "coordinates": {
+        "lat": 36.421438,
+        "lng": 114.18752,
+        "coordinate_system": "GCJ-02",
+        "provider": "amap",
+        "status": "VERIFIED"
+      },
+      "images": [
+        {
+          "thumb": "assets/thumb/food_qianxi_001_facade.webp",
+          "full": "assets/full/food_qianxi_001_facade.jpg",
+          "caption": "千禧三下锅 · 门头"
+        },
+        {
+          "thumb": "assets/thumb/food_qianxi_002_interior.webp",
+          "full": "assets/full/food_qianxi_002_interior.jpg",
+          "caption": "千禧三下锅 · 厅堂"
+        },
+        {
+          "thumb": "assets/thumb/food_qianxi_003_dish.webp",
+          "full": "assets/full/food_qianxi_003_dish.jpg",
+          "caption": "千禧三下锅 · 菜品"
+        }
+      ],
+      "poi_id": "B013601KHF",
+      "source_links": [
+        {
+          "label": "AMap",
+          "url": "https://uri.amap.com/marker?position=114.18752,36.421438"
+        }
+      ],
+      "opening_hours": null,
+      "description": "PRIMARY_DINNER LOCKED",
+      "price": null,
+      "rating_summary": null,
+      "locked": true,
+      "role": null,
+      "duration_min": null
+    },
+    {
+      "place_id": "scenic-museum",
+      "name": "峰峰博物馆",
+      "short_name": "峰峰博物馆",
+      "category": "ATTRACTION",
+      "city": "峰峰",
+      "address": "轻松日上午；周一常规可能闭",
+      "coordinates": {
+        "lat": 36.43956,
+        "lng": 114.226766,
+        "coordinate_system": "GCJ-02",
+        "provider": "amap",
+        "status": "VERIFIED"
+      },
+      "images": [
+        {
+          "thumb": "assets/thumb/attraction_ff_museum_001_facade.webp",
+          "full": "assets/full/attraction_ff_museum_001_facade.jpg",
+          "caption": "博物馆门厅"
+        },
+        {
+          "thumb": "assets/thumb/attraction_ff_museum_002_img.webp",
+          "full": "assets/full/attraction_ff_museum_002_img.jpg",
+          "caption": "梅瓶屏风大厅"
+        }
+      ],
+      "poi_id": "B0H1ZM5QLT",
+      "source_links": [
+        {
+          "label": "AMap",
+          "url": "https://uri.amap.com/marker?position=114.226766,36.43956"
+        }
+      ],
+      "opening_hours": null,
+      "description": "轻松日上午；周一常规可能闭",
+      "price": null,
+      "rating_summary": null,
+      "locked": false,
+      "role": null,
+      "duration_min": null
+    }
+  ],
+  "visits": [
+    {
+      "visit_id": "v-2026-09-28-01-hotel-ff-quanyi",
+      "date": "2026-09-28",
+      "place_id": "hotel-ff-quanyi",
+      "sequence": 1,
+      "planned_start": "09:00",
+      "planned_end": "09:05",
+      "optional": false,
+      "weather_ref": "2026-09-28",
+      "route_to_next": {
+        "to_place_id": "scenic-cizhouyao",
+        "mode": "taxi",
+        "distance_km": 2.1,
+        "duration_min": 5,
+        "source": "MAP-SLIM"
+      },
+      "activity": "出发",
+      "slot": null
+    },
+    {
+      "visit_id": "v-2026-09-28-02-scenic-cizhouyao",
+      "date": "2026-09-28",
+      "place_id": "scenic-cizhouyao",
+      "sequence": 2,
+      "planned_start": "09:15",
+      "planned_end": "12:00",
+      "optional": false,
+      "weather_ref": "2026-09-28",
+      "route_to_next": {
+        "to_place_id": "food-laoma",
+        "mode": "taxi",
+        "distance_km": null,
+        "duration_min": 15,
+        "source": "INTERIM_跨片区估时，精测未做"
+      },
+      "activity": "街区逛+拍照",
+      "slot": null
+    },
+    {
+      "visit_id": "v-2026-09-28-03-food-laoma",
+      "date": "2026-09-28",
+      "place_id": "food-laoma",
+      "sequence": 3,
+      "planned_start": "12:20",
+      "planned_end": "13:20",
+      "optional": false,
+      "weather_ref": "2026-09-28",
+      "route_to_next": {
+        "to_place_id": "scenic-cizhouyao",
+        "mode": "taxi",
+        "distance_km": null,
+        "duration_min": 15,
+        "source": "INTERIM"
+      },
+      "activity": "午餐",
+      "slot": "LUNCH_PRIMARY"
+    },
+    {
+      "visit_id": "v-2026-09-28-04-scenic-cizhouyao",
+      "date": "2026-09-28",
+      "place_id": "scenic-cizhouyao",
+      "sequence": 4,
+      "planned_start": "13:40",
+      "planned_end": "16:30",
+      "optional": false,
+      "weather_ref": "2026-09-28",
+      "route_to_next": {
+        "to_place_id": "food-qianxi",
+        "mode": "taxi",
+        "distance_km": 2.2,
+        "duration_min": 5,
+        "source": "MAP-SLIM"
+      },
+      "activity": "续逛或回全季休息",
+      "slot": null
+    },
+    {
+      "visit_id": "v-2026-09-28-05-food-qianxi",
+      "date": "2026-09-28",
+      "place_id": "food-qianxi",
+      "sequence": 5,
+      "planned_start": "17:40",
+      "planned_end": "19:10",
+      "optional": false,
+      "weather_ref": "2026-09-28",
+      "route_to_next": null,
+      "activity": "晚餐同片",
+      "slot": "DINNER_PRIMARY"
+    }
+  ],
+  "discover_place_ids": [
+    "scenic-museum"
+  ],
+  "routes": [
+    {
+      "id": "2026-09-28-hotel-ff-quanyi-scenic-cizhouyao",
+      "day": "2026-09-28",
+      "from": "hotel-ff-quanyi",
+      "to": "scenic-cizhouyao",
+      "mode": "taxi",
+      "distance": 2.1,
+      "duration": 5,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.206935,
+            36.426505
+          ],
+          [
+            114.19764188,
+            36.4229228
+          ],
+          [
+            114.187695,
+            36.422419
+          ]
+        ],
+        "coordinate_system": "GCJ-02"
+      },
+      "coordinate_system": "GCJ-02",
+      "source": "schematic from ROUTE-FINAL transport_from_previous (MAP-SLIM)",
+      "checked_at": "2026-09-23T16:06:53+08:00",
+      "scope": "day",
+      "style": {
+        "color": "#fbbf24",
+        "dash": "6 8"
+      },
+      "geometry_kind": "SCHEMATIC"
+    },
+    {
+      "id": "2026-09-28-scenic-cizhouyao-food-laoma",
+      "day": "2026-09-28",
+      "from": "scenic-cizhouyao",
+      "to": "food-laoma",
+      "mode": "taxi",
+      "distance": null,
+      "duration": 15,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.187695,
+            36.422419
+          ],
+          [
+            114.20588488,
+            36.42460582
+          ],
+          [
+            114.223849,
+            36.421008
+          ]
+        ],
+        "coordinate_system": "GCJ-02"
+      },
+      "coordinate_system": "GCJ-02",
+      "source": "schematic from ROUTE-FINAL transport_from_previous (INTERIM_跨片区估时，精测未做)",
+      "checked_at": "2026-09-23T16:06:53+08:00",
+      "scope": "day",
+      "style": {
+        "color": "#fbbf24",
+        "dash": "6 8"
+      },
+      "geometry_kind": "SCHEMATIC"
+    },
+    {
+      "id": "2026-09-28-food-laoma-scenic-cizhouyao",
+      "day": "2026-09-28",
+      "from": "food-laoma",
+      "to": "scenic-cizhouyao",
+      "mode": "taxi",
+      "distance": null,
+      "duration": 15,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.223849,
+            36.421008
+          ],
+          [
+            114.20565911999999,
+            36.418821179999995
+          ],
+          [
+            114.187695,
+            36.422419
+          ]
+        ],
+        "coordinate_system": "GCJ-02"
+      },
+      "coordinate_system": "GCJ-02",
+      "source": "schematic from ROUTE-FINAL transport_from_previous (INTERIM)",
+      "checked_at": "2026-09-23T16:06:53+08:00",
+      "scope": "day",
+      "style": {
+        "color": "#fbbf24",
+        "dash": "6 8"
+      },
+      "geometry_kind": "SCHEMATIC"
+    },
+    {
+      "id": "2026-09-28-scenic-cizhouyao-food-qianxi",
+      "day": "2026-09-28",
+      "from": "scenic-cizhouyao",
+      "to": "food-qianxi",
+      "mode": "taxi",
+      "distance": 2.2,
+      "duration": 5,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            114.187695,
+            36.422419
+          ],
+          [
+            114.18768598000001,
+            36.4219145
+          ],
+          [
+            114.18752,
+            36.421438
+          ]
+        ],
+        "coordinate_system": "GCJ-02"
+      },
+      "coordinate_system": "GCJ-02",
+      "source": "schematic from ROUTE-FINAL transport_from_previous (MAP-SLIM)",
+      "checked_at": "2026-09-23T16:06:53+08:00",
+      "scope": "day",
+      "style": {
+        "color": "#fbbf24",
+        "dash": "6 8"
+      },
+      "geometry_kind": "SCHEMATIC"
+    }
+  ],
+  "weather": {
+    "date": "2026-09-28",
+    "city": "邯郸·峰峰",
+    "weekday": "周一",
+    "condition": "雷阵雨转多云 28/19℃",
+    "gear": "雨具全日随身",
+    "tags": [
+      "WEATHER_SENSITIVE",
+      "INDOOR_FALLBACK",
+      "AVOID_TIME_WINDOW",
+      "WEATHER_CONFLICT"
+    ],
+    "impact": {
+      "outdoor": "陶瓷/市集优先上午；午后对流抬头改室内馆",
+      "photo": "阴天柔光可；雨改室内展陈；PHOTO_WEATHER_RISK",
+      "walk": "短时暴雨避空旷长走"
+    },
+    "concert": null,
+    "status": "SOFT"
+  },
+  "transport_note": "10-03=G2076 济南东19:11→邯郸东21:54（已取代G2090）；10-04 SOLO G689+G399 武汉站同站≈21min；演唱会西柳B0213079R1勿去东荷",
+  "attribution": {
+    "ui_base": "EasyItinerary (Dobidop) MIT — map/marker sync patterns",
+    "data": "TRIP2609 audited assets"
+  }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>TRIP2609 · 09-28 峰峰</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/trip.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <strong>TRIP2609</strong>
+        <span id="dayLabel" class="muted">加载中…</span>
+      </div>
+      <div id="weatherChip" class="weather-chip" aria-live="polite"></div>
+    </header>
+
+    <main class="layout">
+      <section id="panel" class="panel" aria-label="行程面板">
+        <nav class="tabs" role="tablist">
+          <button class="tab active" data-tab="today" role="tab" aria-selected="true">今天</button>
+          <button class="tab" data-tab="itinerary" role="tab">行程</button>
+          <button class="tab" data-tab="discover" role="tab">发现</button>
+          <button class="tab tab-light" data-tab="overview" role="tab">总览</button>
+        </nav>
+
+        <div id="view-today" class="view active" role="tabpanel"></div>
+        <div id="view-itinerary" class="view" role="tabpanel" hidden></div>
+        <div id="view-discover" class="view" role="tabpanel" hidden></div>
+        <div id="view-overview" class="view" role="tabpanel" hidden></div>
+      </section>
+
+      <section class="map-wrap" aria-label="地图">
+        <div id="map" role="application"></div>
+        <div id="mapStatus" class="map-status">地图加载中…</div>
+        <button type="button" id="mapRetry" class="map-retry" hidden>重试地图</button>
+      </section>
+    </main>
+
+    <footer class="footer muted">
+      EasyItinerary MIT map patterns · TRIP2609 data · Leaflet · 高德/GeoQ tiles
+    </footer>
+  </div>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="关闭">×</button>
+    <img id="lightboxImg" alt="" />
+    <p id="lightboxCap" class="muted"></p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/boot.js"></script>
+</body>
+</html>

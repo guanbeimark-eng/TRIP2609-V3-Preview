@@ -1,0 +1,227 @@
+[
+  {
+    "place_id": "hotel-ff-quanyi",
+    "name": "全季酒店(邯郸峰峰矿区店)",
+    "short_name": "峰峰全季",
+    "category": "HOTEL",
+    "city": "峰峰",
+    "address": "峰峰主锚酒店；LOCKED；导航只用高德 POI B0KRHARPZF，勿写死门牌",
+    "coordinates": {
+      "lat": 36.426505,
+      "lng": 114.206935,
+      "coordinate_system": "GCJ-02",
+      "provider": "amap",
+      "status": "VERIFIED"
+    },
+    "images": [
+      {
+        "thumb": "assets/thumb/hotel_ff_quanyi_001_facade.webp",
+        "full": "assets/full/hotel_ff_quanyi_001_facade.jpg",
+        "caption": "门头/外观素材"
+      },
+      {
+        "thumb": "assets/thumb/hotel_ff_quanyi_002_interior.webp",
+        "full": "assets/full/hotel_ff_quanyi_002_interior.jpg",
+        "caption": "大堂"
+      },
+      {
+        "thumb": "assets/thumb/hotel_ff_quanyi_003_interior.webp",
+        "full": "assets/full/hotel_ff_quanyi_003_interior.jpg",
+        "caption": "客房"
+      }
+    ],
+    "poi_id": "B0KRHARPZF",
+    "source_links": [
+      {
+        "label": "AMap",
+        "url": "https://uri.amap.com/marker?position=114.206935,36.426505"
+      }
+    ],
+    "opening_hours": null,
+    "description": "峰峰主锚酒店；LOCKED；导航只用高德 POI B0KRHARPZF，勿写死门牌",
+    "price": null,
+    "rating_summary": null,
+    "locked": true,
+    "role": "HOTEL_FF",
+    "duration_min": null
+  },
+  {
+    "place_id": "scenic-cizhouyao",
+    "name": "滏源里磁州窑文化创意街区",
+    "short_name": "磁州窑街区",
+    "category": "ATTRACTION",
+    "city": "峰峰",
+    "address": "文创日主景点",
+    "coordinates": {
+      "lat": 36.422419,
+      "lng": 114.187695,
+      "coordinate_system": "GCJ-02",
+      "provider": "amap",
+      "status": "VERIFIED"
+    },
+    "images": [
+      {
+        "thumb": "assets/thumb/attraction_cizhouyao_001_img.webp",
+        "full": "assets/full/attraction_cizhouyao_001_img.jpg",
+        "caption": "艺术坊入口"
+      },
+      {
+        "thumb": "assets/thumb/attraction_cizhouyao_002_img.webp",
+        "full": "assets/full/attraction_cizhouyao_002_img.jpg",
+        "caption": "笼盔墙巷道"
+      },
+      {
+        "thumb": "assets/thumb/attraction_cizhouyao_003_night.webp",
+        "full": "assets/full/attraction_cizhouyao_003_night.jpg",
+        "caption": "东阁夜景"
+      }
+    ],
+    "poi_id": "B0FFJHT9HI",
+    "source_links": [
+      {
+        "label": "AMap",
+        "url": "https://uri.amap.com/marker?position=114.187695,36.422419"
+      }
+    ],
+    "opening_hours": null,
+    "description": "文创日主景点",
+    "price": null,
+    "rating_summary": null,
+    "locked": false,
+    "role": null,
+    "duration_min": null
+  },
+  {
+    "place_id": "food-laoma",
+    "name": "临漳老马羊汤馆(峰峰分店)",
+    "short_name": "老马羊汤",
+    "category": "FOOD",
+    "city": "峰峰",
+    "address": "PRIMARY_LUNCH LOCKED",
+    "coordinates": {
+      "lat": 36.421008,
+      "lng": 114.223849,
+      "coordinate_system": "GCJ-02",
+      "provider": "amap",
+      "status": "VERIFIED"
+    },
+    "images": [
+      {
+        "thumb": "assets/thumb/food_laoma_001_facade.webp",
+        "full": "assets/full/food_laoma_001_facade.jpg",
+        "caption": "老马羊汤 · 门头"
+      },
+      {
+        "thumb": "assets/thumb/food_laoma_002_dish.webp",
+        "full": "assets/full/food_laoma_002_dish.jpg",
+        "caption": "老马羊汤 · 菜品"
+      },
+      {
+        "thumb": "assets/thumb/food_laoma_003_dish.webp",
+        "full": "assets/full/food_laoma_003_dish.jpg",
+        "caption": "老马羊汤 · 菜品"
+      }
+    ],
+    "poi_id": "B0FFGX5DJC",
+    "source_links": [
+      {
+        "label": "AMap",
+        "url": "https://uri.amap.com/marker?position=114.223849,36.421008"
+      }
+    ],
+    "opening_hours": null,
+    "description": "PRIMARY_LUNCH LOCKED",
+    "price": null,
+    "rating_summary": null,
+    "locked": true,
+    "role": null,
+    "duration_min": null
+  },
+  {
+    "place_id": "food-qianxi",
+    "name": "千禧三下锅(磁州窑艺术街区店)",
+    "short_name": "千禧三下锅",
+    "category": "FOOD",
+    "city": "峰峰",
+    "address": "PRIMARY_DINNER LOCKED",
+    "coordinates": {
+      "lat": 36.421438,
+      "lng": 114.18752,
+      "coordinate_system": "GCJ-02",
+      "provider": "amap",
+      "status": "VERIFIED"
+    },
+    "images": [
+      {
+        "thumb": "assets/thumb/food_qianxi_001_facade.webp",
+        "full": "assets/full/food_qianxi_001_facade.jpg",
+        "caption": "千禧三下锅 · 门头"
+      },
+      {
+        "thumb": "assets/thumb/food_qianxi_002_interior.webp",
+        "full": "assets/full/food_qianxi_002_interior.jpg",
+        "caption": "千禧三下锅 · 厅堂"
+      },
+      {
+        "thumb": "assets/thumb/food_qianxi_003_dish.webp",
+        "full": "assets/full/food_qianxi_003_dish.jpg",
+        "caption": "千禧三下锅 · 菜品"
+      }
+    ],
+    "poi_id": "B013601KHF",
+    "source_links": [
+      {
+        "label": "AMap",
+        "url": "https://uri.amap.com/marker?position=114.18752,36.421438"
+      }
+    ],
+    "opening_hours": null,
+    "description": "PRIMARY_DINNER LOCKED",
+    "price": null,
+    "rating_summary": null,
+    "locked": true,
+    "role": null,
+    "duration_min": null
+  },
+  {
+    "place_id": "scenic-museum",
+    "name": "峰峰博物馆",
+    "short_name": "峰峰博物馆",
+    "category": "ATTRACTION",
+    "city": "峰峰",
+    "address": "轻松日上午；周一常规可能闭",
+    "coordinates": {
+      "lat": 36.43956,
+      "lng": 114.226766,
+      "coordinate_system": "GCJ-02",
+      "provider": "amap",
+      "status": "VERIFIED"
+    },
+    "images": [
+      {
+        "thumb": "assets/thumb/attraction_ff_museum_001_facade.webp",
+        "full": "assets/full/attraction_ff_museum_001_facade.jpg",
+        "caption": "博物馆门厅"
+      },
+      {
+        "thumb": "assets/thumb/attraction_ff_museum_002_img.webp",
+        "full": "assets/full/attraction_ff_museum_002_img.jpg",
+        "caption": "梅瓶屏风大厅"
+      }
+    ],
+    "poi_id": "B0H1ZM5QLT",
+    "source_links": [
+      {
+        "label": "AMap",
+        "url": "https://uri.amap.com/marker?position=114.226766,36.43956"
+      }
+    ],
+    "opening_hours": null,
+    "description": "轻松日上午；周一常规可能闭",
+    "price": null,
+    "rating_summary": null,
+    "locked": false,
+    "role": null,
+    "duration_min": null
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-28",
+  "city": "邯郸·峰峰",
+  "weekday": "周一",
+  "condition": "雷阵雨转多云 28/19℃",
+  "gear": "雨具全日随身",
+  "tags": [
+    "WEATHER_SENSITIVE",
+    "INDOOR_FALLBACK",
+    "AVOID_TIME_WINDOW",
+    "WEATHER_CONFLICT"
+  ],
+  "impact": {
+    "outdoor": "陶瓷/市集优先上午；午后对流抬头改室内馆",
+    "photo": "阴天柔光可；雨改室内展陈；PHOTO_WEATHER_RISK",
+    "walk": "短时暴雨避空旷长走"
+  },
+  "concert": null,
+  "status": "SOFT"
+}

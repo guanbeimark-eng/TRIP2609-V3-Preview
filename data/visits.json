@@ -1,0 +1,91 @@
+[
+  {
+    "visit_id": "v-2026-09-28-01-hotel-ff-quanyi",
+    "date": "2026-09-28",
+    "place_id": "hotel-ff-quanyi",
+    "sequence": 1,
+    "planned_start": "09:00",
+    "planned_end": "09:05",
+    "optional": false,
+    "weather_ref": "2026-09-28",
+    "route_to_next": {
+      "to_place_id": "scenic-cizhouyao",
+      "mode": "taxi",
+      "distance_km": 2.1,
+      "duration_min": 5,
+      "source": "MAP-SLIM"
+    },
+    "activity": "出发",
+    "slot": null
+  },
+  {
+    "visit_id": "v-2026-09-28-02-scenic-cizhouyao",
+    "date": "2026-09-28",
+    "place_id": "scenic-cizhouyao",
+    "sequence": 2,
+    "planned_start": "09:15",
+    "planned_end": "12:00",
+    "optional": false,
+    "weather_ref": "2026-09-28",
+    "route_to_next": {
+      "to_place_id": "food-laoma",
+      "mode": "taxi",
+      "distance_km": null,
+      "duration_min": 15,
+      "source": "INTERIM_跨片区估时，精测未做"
+    },
+    "activity": "街区逛+拍照",
+    "slot": null
+  },
+  {
+    "visit_id": "v-2026-09-28-03-food-laoma",
+    "date": "2026-09-28",
+    "place_id": "food-laoma",
+    "sequence": 3,
+    "planned_start": "12:20",
+    "planned_end": "13:20",
+    "optional": false,
+    "weather_ref": "2026-09-28",
+    "route_to_next": {
+      "to_place_id": "scenic-cizhouyao",
+      "mode": "taxi",
+      "distance_km": null,
+      "duration_min": 15,
+      "source": "INTERIM"
+    },
+    "activity": "午餐",
+    "slot": "LUNCH_PRIMARY"
+  },
+  {
+    "visit_id": "v-2026-09-28-04-scenic-cizhouyao",
+    "date": "2026-09-28",
+    "place_id": "scenic-cizhouyao",
+    "sequence": 4,
+    "planned_start": "13:40",
+    "planned_end": "16:30",
+    "optional": false,
+    "weather_ref": "2026-09-28",
+    "route_to_next": {
+      "to_place_id": "food-qianxi",
+      "mode": "taxi",
+      "distance_km": 2.2,
+      "duration_min": 5,
+      "source": "MAP-SLIM"
+    },
+    "activity": "续逛或回全季休息",
+    "slot": null
+  },
+  {
+    "visit_id": "v-2026-09-28-05-food-qianxi",
+    "date": "2026-09-28",
+    "place_id": "food-qianxi",
+    "sequence": 5,
+    "planned_start": "17:40",
+    "planned_end": "19:10",
+    "optional": false,
+    "weather_ref": "2026-09-28",
+    "route_to_next": null,
+    "activity": "晚餐同片",
+    "slot": "DINNER_PRIMARY"
+  }
+]
